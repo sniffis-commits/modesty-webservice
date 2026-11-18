@@ -1,0 +1,18 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "nsfw-webservice"
+version = "0.1.0"
+description = "Modesty - nsfw protection API service with SQLite cache"
+requires-python = ">=3.10"
+dependencies = ["modesty_nsfw_scanner"]
+
+[project.scripts]
+nsfw-serve = "server:main"
+modesty-nsfw-serve = "server:main"
+
+[tool.setuptools]
+package-dir = { "" = "src" }
+py-modules = ["server", "cache_db"]

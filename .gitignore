@@ -1,0 +1,15 @@
+# build / caches
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+target/
+node_modules/
+.venv/
+.idea/
+*.onnx
+*.sqlite
+*.sqlite-wal
+*.sqlite-shm
+sys/config.local.php

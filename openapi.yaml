@@ -1,0 +1,49 @@
+openapi: 3.0.3
+info:
+  title: Modesty NSFW Scanner — Open API
+  description: Hash-level result retrieval for external clients. No file uploads; only exact-byte matches.
+  version: 0.3.0
+servers:
+  - url: https://example.com
+paths:
+  /v1/hash/{sha256}:
+    get:
+      summary: Lookup a previously scanned file by SHA-256
+      parameters:
+        - name: sha256
+          in: path
+          required: true
+          schema: { type: string, pattern: '^[a-f0-9]{64}$' }
+      responses:
+        '200':
+          description: Known hash
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  hash: { type: string }
+                  rating: { type: integer, minimum: 1, maximum: 10 }
+                  verdict: { type: string }
+                  source: { type: string }
+        '404':
+          description: Unknown hash
+  /v1/sample:
+    post:
+      summary: Submit a local file hash with optional sample metadata
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                hash: { type: string }
+                rating: { type: integer }
+                verdict: { type: string }
+                stored: { type: boolean }
+      responses:
+        '201':
+          description: Stored
+        '200':
+          description: Already known
